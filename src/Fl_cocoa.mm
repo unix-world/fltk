@@ -3328,12 +3328,14 @@ void Fl_Cocoa_Window_Driver::fullscreen_on() {
 
 
 void Fl_Cocoa_Window_Driver::maximize() {
-  [fl_xid(pWindow) performZoom:nil];
+  if (border()) [fl_xid(pWindow) performZoom:nil];
+  else Fl_Window_Driver::maximize();
 }
 
 
 void Fl_Cocoa_Window_Driver::un_maximize() {
-  [fl_xid(pWindow) performZoom:nil];
+  if (border()) [fl_xid(pWindow) performZoom:nil];
+  else Fl_Window_Driver::un_maximize();
 }
 
 
@@ -3370,7 +3372,6 @@ void Fl_Cocoa_Window_Driver::fullscreen_off(int X, int Y, int W, int H) {
 #  if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
     FLWindow *nswin = fl_xid(pWindow);
     [nswin toggleFullScreen:nil];
-    pWindow->resize(*no_fullscreen_x(), *no_fullscreen_y(), *no_fullscreen_w(), *no_fullscreen_h());
 #  endif
   } else if (fl_mac_os_version >= 100600) {
     FLWindow *nswin = fl_xid(pWindow);
@@ -3388,6 +3389,7 @@ void Fl_Cocoa_Window_Driver::fullscreen_off(int X, int Y, int W, int H) {
     [nswin setStyleMask:calc_win_style(pWindow)]; //10.6
     restore_window_title_and_icon(pWindow, icon_image);
     pWindow->resize(X, Y, W, H);
+    if (pWindow->maximize_active()) Fl_Window_Driver::maximize();
     if (has_focus) [nswin makeKeyAndOrderFront:nil];
     else [nswin orderFront:nil];
   } else
@@ -3404,6 +3406,17 @@ void Fl_Cocoa_Window_Driver::use_border() {
   if (!shown() || pWindow->parent()) return;
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
   if (fl_mac_os_version >= 100600) {
+    if (pWindow->fullscreen_active() || pWindow->maximize_active()) {
+      // prevent changing border while window is fullscreen or maximized
+      static bool active = false;
+      if (!active) {
+        active = true;
+        bool b = !border();
+        pWindow->border(b);
+        active = false;
+      }
+      return;
+    }
     [fl_xid(pWindow) setStyleMask:calc_win_style(pWindow)]; // 10.6
     if (border()) restore_window_title_and_icon(pWindow, icon_image);
     pWindow->redraw();
@@ -4615,7 +4628,7 @@ int Fl_Cocoa_Window_Driver::decorated_h()
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_VERSION_15_0
 
 // Requires -weak_framework ScreenCaptureKit and used by FLTK for macOS ≥ 15.0
-static CGImageRef capture_titlebar_macOS15(NSWindow *nswin) {
+static CGImageRef capture_decorated_window_SCK(NSWindow *nswin) {
   if (@available(macOS 15.0, *)) {
     __block CGImageRef capture = NULL;
     __block BOOL capture_err = NO;
@@ -4686,15 +4699,52 @@ static CGImageRef capture_titlebar_macOS15(NSWindow *nswin) {
       NSWindow *xid = (NSWindow*)[xid_array objectAtIndex:i];
       if (mask != [xid styleMask]) [xid setStyleMask:mask];
     }
-    int bt =  [nswin frame].size.height - [[nswin contentView] frame].size.height;
-    int s = CGImageGetWidth(capture) / W;
-    CGRect cgr = CGRectMake(0, 0, W * s, bt * s);
-    CGImageRef title_bar = CGImageCreateWithImageInRect(capture, cgr);
-    CGImageRelease(capture);
-    return title_bar;
+    return capture;
   } else return NULL;
 }
 #endif //MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_VERSION_15_0
+
+
+CGImageRef Fl_Cocoa_Window_Driver::capture_decorated_window_10_6(NSWindow *nswin) {
+  // usable with 10.6 and above
+  CGImageRef img = NULL;
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+#  if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_VERSION_15_0
+  if (fl_mac_os_version >= 150000)
+      img = capture_decorated_window_SCK(nswin);
+  else
+#endif
+    {
+#  if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_VERSION_15_0
+      NSInteger win_id = [nswin windowNumber];
+      CFArrayRef array = CFArrayCreate(NULL, (const void**)&win_id, 1, NULL);
+      img = CGWindowListCreateImageFromArray(CGRectNull, array, kCGWindowImageBoundsIgnoreFraming); // 10.5
+      CFRelease(array);
+#  endif
+    }
+#endif // >= MAC_OS_X_VERSION_10_5
+  return img;
+}
+
+
+static CGImageRef capture_window_titlebar(Fl_Window *win, Fl_Cocoa_Window_Driver *cocoa_dr) {
+  CGImageRef img;
+  if (fl_mac_os_version >= 100600) { // verified OK from 10.6
+    FLWindow *nswin = fl_xid(win);
+    CGImageRef img_full = Fl_Cocoa_Window_Driver::capture_decorated_window_10_6(nswin);
+    int bt =  [nswin frame].size.height - [[nswin contentView] frame].size.height;
+    int s = CGImageGetWidth(img_full) / [nswin frame].size.width;
+    CGRect cgr = CGRectMake(0, 0, CGImageGetWidth(img_full), bt * s);
+    img = CGImageCreateWithImageInRect(img_full, cgr);
+    CGImageRelease(img_full);
+  } else {
+    int w = win->w(), h = win->decorated_h() - win->h();
+    Fl_Graphics_Driver::default_driver().scale(1);
+    img = cocoa_dr->CGImage_from_window_rect(0, -h, w, h, false);
+    Fl_Graphics_Driver::default_driver().scale(Fl::screen_driver()->scale(win->screen_num()));
+  }
+  return img;
+}
 
 
 void Fl_Cocoa_Window_Driver::draw_titlebar_to_context(CGContextRef gc, int w, int h)
@@ -4702,29 +4752,7 @@ void Fl_Cocoa_Window_Driver::draw_titlebar_to_context(CGContextRef gc, int w, in
   FLWindow *nswin = fl_xid(pWindow);
   if ([nswin canBecomeMainWindow]) [nswin makeMainWindow];
   [NSApp nextEventMatchingMask:NSEventMaskAny untilDate:nil inMode:NSDefaultRunLoopMode dequeue:NO];
-  CGImageRef img = NULL;
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-#  if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_VERSION_15_0
-  if (fl_mac_os_version >= 150000) img = capture_titlebar_macOS15(nswin);
-  else
-#  endif
-    if (fl_mac_os_version >= 100600) { // verified OK from 10.6
-    NSInteger win_id = [nswin windowNumber];
-    CFArrayRef array = CFArrayCreate(NULL, (const void**)&win_id, 1, NULL);
-    CGRect rr = NSRectToCGRect([nswin frame]);
-    rr.origin.y = CGDisplayBounds(CGMainDisplayID()).size.height - (rr.origin.y + rr.size.height);
-    rr.size.height = h;
-#  if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_VERSION_15_0
-    img = CGWindowListCreateImageFromArray(rr, array, kCGWindowImageBoundsIgnoreFraming); // 10.5
-#  endif
-    CFRelease(array);
-  } else
-#endif
-  {
-    Fl_Graphics_Driver::default_driver().scale(1);
-    img = CGImage_from_window_rect(0, -h, w, h, false);
-    Fl_Graphics_Driver::default_driver().scale(Fl::screen_driver()->scale(screen_num()));
-  }
+  CGImageRef img = capture_window_titlebar(pWindow, this);
   if (img) {
     CGContextSaveGState(gc);
     if (fl_mac_os_version < 100600) clip_to_rounded_corners(gc, w, h);
