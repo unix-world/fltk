@@ -1,3 +1,49 @@
+Changes in FLTK 1.4.0                                   Released: Nov 17 2024
+
+  Bug Fixes:
+
+  - Windows: Fix "fullscreen_off does not correctly preserve window size" (#1116)
+  - Fix rounding issues with Fl_RGB_Image::draw() + Fl_Copy_Surface (#1120, #1124)
+  - Windows: Fix "Keyboard shortcut (alt+letter) does not work in input widget" (#1122)
+  - macOS: Fix Alt-modifier handling in Fl_Shorcut_Button
+  - Windows: Fix flicker/animation when transitioning from fullscreen to maximized
+  - Wayland: protect against rounding errors in copy_region()
+
+  Documentation and other Improvements:
+
+  - Revert gtk+ specific "chevron style" arrow drawing (#1117)
+  - Update CREDITS.txt
+  - Improve 'test/fltk-versions' demo program
+
+
+Changes in FLTK 1.4.0 RC3                               Released: Nov 08 2024
+
+  Bug Fixes:
+
+  - Windows: "Fullscreen doesn't always pick the correct display" (#1097)
+  - macOS: "Mixing native fullscreen button with Fl_Window::fullscreen()" (#1098)
+  - Wayland: Issue in maximization of a borderless window (#1099)
+  - macOS: "Merge All Windows" fails if focused window is borderless (#1100)
+  - macOS: Fl_Window::fullscreen() doesn't work for unfocused tabbed window (#1101)
+  - Fl_Tile resizing for "sudden" size changes (#1102)
+  - macOS: Weak linking error with latest SDK 15 (#1103, #1105)
+  - X11: test/checkers drawing artifacts when window is scaled (#1109)
+  - X11: test/curve "points" mode not drawn correctly (#1110)
+  - X11: test/gl_overlay stale overlay rendering (#1111)
+  - fl_draw_image() with horizontal flip reads out of bounds (#1112)
+  - macOS: Very minor high DPI rounding issue with fl_rect (#1113)
+  - macOS: Prevent changing window border if window is fullscreen or maximized
+  - Mac/XQuartz: Restore Fl_Widget_Surface::draw_decorated_window()
+
+  Other Improvements:
+
+  - Improve member function Fl_Wayland_Graphics_Driver::copy_offscreen()
+  - Make Fl_Window::flush() public for consistency with subclasses
+  - Improve UI layout of 'fltk-options'
+  - Fix compiler warnings
+  - Improve and clarify documentation, including README.CMake.txt
+
+
 Changes in FLTK 1.4.0 RC2                               Released: Oct 27 2024
 
   - Add range check to Fl_Group::child(int)
