@@ -1,2 +1,2 @@
-FLTK 1.4.0 RC2 @ 2024-11-02
-https://github.com/fltk/fltk/commit/e1388142575a14a35b841af5ce8c4284edcc60b2
+FLTK 1.4.0 @ 2024-12-01
+https://github.com/fltk/fltk/commit/13bb611b4efabae584f13af6c3531360263ceb7d
