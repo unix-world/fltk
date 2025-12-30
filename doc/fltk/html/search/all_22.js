@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['x_0',['x',['../structFl__Help__Link.html#ae4779c7f0291c60fdeb00eb088133fe2',1,'Fl_Help_Link::x'],['../group__fl__screen.html#gaed836eacded3467aa838d02a1c55e3ab',1,'Fl::x()'],['../classFl__Help__Dialog.html#a717450488feb6c62ae1c0a5b0504816c',1,'Fl_Help_Dialog::x()'],['../classFl__Rect.html#adc9398d9fc8d183e27d1157fcbfa3b3a',1,'Fl_Rect::x() const'],['../classFl__Rect.html#a8cb963d17d68c23b8f096fa3dd728a10',1,'Fl_Rect::x(int X)'],['../classFl__Tree__Item.html#af3879c09adc276634eb0ac3262a2dcbe',1,'Fl_Tree_Item::x()'],['../classFl__Widget.html#abea0b9ad493d58bf7fda8d3c81d477b7',1,'Fl_Widget::x(int v)'],['../classFl__Widget.html#aeed320ce65d02a7f0fcab1363f0136b0',1,'Fl_Widget::x() const']]],
+  ['x_20events_1',['X Events',['../osissues.html#osissues_x_events',1,'Handling Other X Events'],['../deprecated.html#_deprecated000044',1,'Handling Other X Events'],['../deprecated.html#_deprecated000045',1,'Handling Other X Events']]],
+  ['x_20interface_2',['The Apple OS X Interface',['../osissues.html#osissues_macos',1,'']]],
+  ['x_20resources_3',['X Resources',['../osissues.html#osissues_xresources',1,'']]],
+  ['x_20specific_20symbols_4',['Mac OS X-specific symbols',['../group__group__macosx.html',1,'']]],
+  ['x_20stuff_5',['Using a Subclass of Fl_Window for Special X Stuff',['../osissues.html#osissues_specialx',1,'']]],
+  ['x_20visual_6',['Changing the Display, Screen, or X Visual',['../osissues.html#osissues_xvisual',1,'']]],
+  ['x11_20hybrid_20library_7',['The Wayland/X11 hybrid library',['../osissues.html#osissues_wl_x11_hybrid',1,'']]],
+  ['x11_20interface_8',['The UNIX (X11) Interface',['../osissues.html#osissues_unix',1,'']]],
+  ['x11_20platform_9',['The hybrid Wayland/X11 platform',['../wayland-devel.html#wayland-x11-hybrid',1,'']]],
+  ['x11_20specific_20code_20with_20a_20hybrid_20fltk_20library_10',['Using X11 specific code with a &quot;hybrid&quot; FLTK library',['../migration_1_4.html#migration_1_4_x11_compat',1,'']]],
+  ['x11_2eh_11',['x11.H',['../x11_8H.html',1,'']]],
+  ['x_5foffset_12',['x_offset',['../classFl__Widget__Surface.html#a35574bebdf619028d5ea4dc7b64d2157',1,'Fl_Widget_Surface']]],
+  ['x_5froot_13',['x_root',['../classFl__Window.html#a26be3fa772a044d4c922b261b1df60bd',1,'Fl_Window']]],
+  ['x_5fto_5fcol_14',['x_to_col',['../classFl__Text__Display.html#a69139918fadc2ea30d5c16583fc8d0c8',1,'Fl_Text_Display']]],
+  ['xbounds_15',['xbounds',['../classFl__Positioner.html#abe43df59869974dc501f1d9b29b931b4',1,'Fl_Positioner']]],
+  ['xclass_16',['xclass',['../classFl__Window.html#a5f4838ae3f1100495d1f4eeca6c33397',1,'Fl_Window::xclass() const'],['../classFl__Window.html#a913bb4f81e4627e5b4a860ef78bca1ff',1,'Fl_Window::xclass(const char *c)']]],
+  ['xlib_17',['Drawing using Xlib',['../osissues.html#osissues_drawing_xlib',1,'']]],
+  ['xmaximum_18',['xmaximum',['../classFl__Positioner.html#af570d7f8643a723c57ad6a5f5f34b854',1,'Fl_Positioner::xmaximum() const'],['../classFl__Positioner.html#a1266ba5b972684673eb2274ec5371226',1,'Fl_Positioner::xmaximum(double a)']]],
+  ['xminimum_19',['xminimum',['../classFl__Positioner.html#a39b666f14b3c97a4e9e3dec680a0e932',1,'Fl_Positioner::xminimum() const'],['../classFl__Positioner.html#a12c59eca4d22ac86e77515c925192bc9',1,'Fl_Positioner::xminimum(double a)']]],
+  ['xposition_20',['xposition',['../classFl__Scroll.html#a83b1ac53e5d35d83b9b804e03891363a',1,'Fl_Scroll']]],
+  ['xstep_21',['xstep',['../classFl__Positioner.html#a8c73c15b3152110c95c3c10ed32bcbbe',1,'Fl_Positioner']]],
+  ['xvalue_22',['xvalue',['../classFl__Positioner.html#a7c494d5e947ef4edaf5268a9216b9e27',1,'Fl_Positioner::xvalue() const'],['../classFl__Positioner.html#a5c3090ebf46d34525eadd24fd54ec5d5',1,'Fl_Positioner::xvalue(double)']]],
+  ['xy_5fto_5fposition_23',['xy_to_position',['../classFl__Text__Display.html#a3048c33ca31c4ccb39ca6dff352aa47b',1,'Fl_Text_Display']]],
+  ['xy_5fto_5frowcol_24',['xy_to_rowcol',['../classFl__Text__Display.html#ac2fd9e9ef877f35a20136b9a2be54553',1,'Fl_Text_Display']]]
+];

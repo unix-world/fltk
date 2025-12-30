@@ -1,0 +1,26 @@
+var classFl__PostScript__File__Device =
+[
+    [ "Fl_PostScript_File_Device", "classFl__PostScript__File__Device.html#a0d3322e4698aa2c3fa4e4254d17f717d", null ],
+    [ "~Fl_PostScript_File_Device", "classFl__PostScript__File__Device.html#a30fb2bac9ac4c8a0ee266c93b8942356", null ],
+    [ "begin_job", "classFl__PostScript__File__Device.html#ab9cf59e7b43ac83537f35d21ea1ec6c7", null ],
+    [ "begin_job", "classFl__PostScript__File__Device.html#a67372e3f4bf79440f927377467a40d3c", null ],
+    [ "begin_job", "classFl__PostScript__File__Device.html#a3b6a1bf8b91150f0be9c5fd4d8df0f73", null ],
+    [ "begin_page", "classFl__PostScript__File__Device.html#a85eab081e52fec0057d370eff8025ea5", null ],
+    [ "close_command", "classFl__PostScript__File__Device.html#af08d3d60a5d69b9b8c3d518ec89b17fe", null ],
+    [ "driver", "classFl__PostScript__File__Device.html#a7a1526bd1ae1a010978842adb459c9a3", null ],
+    [ "end_current", "classFl__PostScript__File__Device.html#ae4b69060cf04bb188db9c3fde9ece109", null ],
+    [ "end_job", "classFl__PostScript__File__Device.html#aa7e33ce2277e0c77c5955e1be19e7fac", null ],
+    [ "end_page", "classFl__PostScript__File__Device.html#ab4d1d22acaa67ac5b8a5c2484a7785a8", null ],
+    [ "file", "classFl__PostScript__File__Device.html#a6768070b23d52b8b7ca15f9413e471b0", null ],
+    [ "margins", "classFl__PostScript__File__Device.html#a3f8977dc42c6a1cfd112a1d7445455a0", null ],
+    [ "origin", "classFl__PostScript__File__Device.html#abed15e25e370bbf3aa62361bc8d1ce1f", null ],
+    [ "origin", "classFl__PostScript__File__Device.html#a3b4a3ff0b8e1144c7b7b1bc44f7faf39", null ],
+    [ "printable_rect", "classFl__PostScript__File__Device.html#ad573cc7f3f0d9adb6b83b169ec8918ea", null ],
+    [ "rotate", "classFl__PostScript__File__Device.html#a91b4082a038b74e13eab5be80c1373b3", null ],
+    [ "scale", "classFl__PostScript__File__Device.html#a81d4642f96f0a66881590869ceab3278", null ],
+    [ "set_current", "classFl__PostScript__File__Device.html#af23e765044d78093622cc489c4832b1a", null ],
+    [ "start_job", "classFl__PostScript__File__Device.html#a2d0bcca9d033e4ceef09ce0f5fc0fdd3", null ],
+    [ "start_job", "classFl__PostScript__File__Device.html#aa60efc0c2a5636b35c7261580797171b", null ],
+    [ "translate", "classFl__PostScript__File__Device.html#a7ca220ba46a0c820d3e650e65582f970", null ],
+    [ "untranslate", "classFl__PostScript__File__Device.html#a9fad5dc54a7affb17fbce7147f99129b", null ]
+];
